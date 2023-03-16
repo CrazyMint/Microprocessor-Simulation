@@ -1,0 +1,21 @@
+*************
+start exg_test 1
+0006 AC
+000A X
+0006 SP
+0000 PC
+0000 CVZN
+4001 EXG AC,X
+4106 EXG (X),SP
+4202 EXG (AC)+,SP
+4306 EXG -(X),SP
+4014 EXG X,(AC)
+0008 5:
+0011 6:
+0023 7:
+0081 8:
+1031 9:
+FFFF A:
+7313 B:
+end exg_test 1
+*************

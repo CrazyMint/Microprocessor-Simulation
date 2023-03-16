@@ -1,0 +1,11 @@
+**************	
+start exg_text1
+0007	AC
+0006	X
+0005	SP
+0004	PC
+0000	CVZN
+4001	EXG AC,X
+0000
+end exg_test1
+**************

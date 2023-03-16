@@ -1,0 +1,229 @@
+***************************
+**      ECE 5362         **
+**** Machine Probpem 2 ****
+****     Austin Wei    ****
+***************************
+*** Start fetch cycle  ****
+ st=0 rt='[pc]-> mar'       imar rac=1 rn=3
+ st=1 rt='[[mar]]-> mdr'    read
+ st=2 rt='[mdr] -> ir'      omdr iir
+ st=3 rt='[pc]+1 -> q'      rac=1 rn=3 ib p1 oadder
+ st=4 rt='[q] -> pc'        oq wac=1 wn=3
+        cond='ir158' value=0 nst=10
+        cond='ir118' value=4 nst=20
+        cond='ir1512' value=4 nst=30
+        nst=10
+
+*** If any instructions are present except HALT or NEG, a halt will occur. ***
+*** HALT execution cycle ***
+ st=10 halt
+
+*** NEG R execution cycle ***
+*** st=20  rt='0-[r_src] -> q'    rac=2 ib comp p1 oadder newc newv
+*** st=21  rt='[q] -> r_src'      oq wac=2 newz newn
+***        nst=0
+
+*** Select r_dst ***
+ st=20	rt='[r_dst] -> t3'		rac=3 it3
+		cond='ir64' value=0 nst=110
+		cond='ir64' value=1 nst=111
+		cond='ir64' value=2 nst=114
+		cond='ir64' value=3 nst=117
+ st=21 rt='0-[t5] -> q'			ot5 ib comp p1 oadder newc newv
+ st=22 rt='[q] -> t2'			oq it2 newn newz
+		cond='ir64' value=0 nst=130
+		cond='ir64' value=1 nst=131
+		cond='ir64' value=2 nst=134
+		cond='ir64' value=3 nst=139
+
+
+
+*** EXG R,R exucution cycle ***
+*** st=30  rt='[r_src] -> t2'      rac=2 it2 ***
+*** st=31  rt='[r_dst] -> t3'		rac=3 it3 ***
+*** st=32  rt='[t5] -> r_src'      ot5 wac=2 ***
+*** st=33  rt='[t4] -> r_dst'      ot4 wac=3 ***
+***        nst=0
+
+*** Select r_src ***
+ st=30	rt='[r_src] -> t2'      rac=2 it2
+		cond='ir108' value=0 nst=40
+		cond='ir108' value=1 nst=41
+		cond='ir108' value=2 nst=44
+		cond='ir108' value=3 nst=47
+
+*** Select r_dst ***
+ st=31	rt='[r_dst] -> t3'		rac=3 it3
+		cond='ir64' value=0 nst=60
+		cond='ir64' value=1 nst=61
+		cond='ir64' value=2 nst=64
+		cond='ir64' value=3 nst=67
+
+*** Exchange ***
+ st=32	rt='[t5] -> r_src'      ot5 wac=2
+		cond='ir108' value=0 nst=80
+		cond='ir108' value=1 nst=81
+		cond='ir108' value=2 nst=84
+		cond='ir108' value=3 nst=89
+ st=33	rt='[t4] -> r_dst'      ot4 wac=3
+		cond='ir64' value=0 nst=92
+		cond='ir64' value=1 nst=93
+		cond='ir64' value=2 nst=96
+		cond='ir64' value=3 nst=101
+
+
+*************** src addressing mode *******************
+
+*** Register ***
+ st=40  rt='[r_src] -> t2/t4'	rac=2 it2 it4
+		nst=31
+
+*** Register Indirect ***
+ st=41 rt='[r_src] -> mar/t2'	rac=2 imar it2
+ st=42 rt='[[mar]] -> mdr'		read
+ st=43 rt='[mdr] -> t4'			omdr it4
+		nst=31
+
+*** Autoincrement ***
+ st=44 rt='[r_src] -> mar/t2'	rac=2 imar it2
+ st=45 rt='[[mar]] -> mdr'		read
+ st=46 rt='[mdr] -> t4'			omdr it4
+		nst=31
+
+*** Autodecrement ***
+ st=47 rt='[r_src] -> t1'		rac=2 it1
+ st=48 rt='[t1] - 1 -> q'		oa comp oadder
+ st=49 rt='[q] -> r_src/t2'		oq wac=2 it2
+ st=50 rt='[t2] -> mar'			ot2 imar
+ st=51 rt='[[mar]] -> mdr'		read
+ st=52 rt='[mdr] -> t4'			omdr it4
+		nst=31
+
+*************** dst addressing mode *******************
+
+*** Register ***
+ st=60 rt='[r_dst] -> t3/t5'	rac=3 it3 it5
+		nst=32
+
+*** Register Indirect ***
+ st=61 rt='[r_dst] -> mar/t3'	rac=3 imar it3
+ st=62 rt='[[mar]] -> mdr'		read
+ st=63 rt='[mdr] -> t5'			omdr it5
+		nst=32
+
+*** Autoincrement ***
+ st=64 rt='[r_dst] -> mar/t3'	rac=3 imar it3
+ st=65 rt='[[mar]] -> mdr'		read
+ st=66 rt='[mdr] -> t5'			omdr it5
+		nst=32
+
+*** Autodecrement ***
+ st=67 rt='[r_dst] -> t1'		rac=3 it1
+ st=68 rt='[t1] - 1 -> q'		oa comp oadder
+ st=69 rt='[q] -> r_dst/t3'		oq wac=3 it3
+ st=70 rt='[t3] -> mar'			ot3 imar
+ st=71 rt='[[mar]] -> mdr'		read
+ st=72 rt='[mdr] -> t5'			omdr it5
+		nst=32
+
+************** exchange ****************
+*** src is Register ***
+ st=80 rt='[t5] -> r_src'		ot5 wac=2
+		nst=33
+
+*** src is Register Indirect ***
+ st=81 rt='[t2] -> mar/r_src'	ot2 imar wac=2
+ st=82 rt='[t5] -> mdr'			ot5 imdr
+ st=83 rt='[mdr] -> [mar]'		write
+		nst=33
+
+*** src is Autoincrement ***
+ st=84 rt='[t2] -> mar'			ot2 imar
+ st=85 rt='[t5] -> mdr'			ot5 imdr
+ st=86 rt='[mdr] -> [mar]'		write
+ st=87 rt='[t2] + 1 -> q'		ot2 ib p1 oadder
+ st=88 rt='[q] -> r_src'		oq wac=2
+		nst=33
+
+*** src is Autodecrement ***
+ st=89 rt='[t2] -> mar/r_src'	ot2 imar wac=2
+ st=90 rt='[t5] -> mdr'			ot5 imdr
+ st=91 rt='[mdr] -> [mar]'		write
+		nst=33
+
+*** dst is Register ***
+ st=92 rt='[t4] -> r_dst'		ot4 wac=3
+		nst=0
+
+*** dst is Register Indirect ***
+ st=93 rt='[t3] -> mar/r_dst'	ot3 imar wac=3
+ st=94 rt='[t4] -> mdr'			ot4 imdr
+ st=95 rt='[mdr] -> [mar]'		write
+		nst=0
+
+*** dst is Autoincrement ***
+ st=96 rt='[t3] -> mar'			ot3 imar
+ st=97 rt='[t4] -> mdr'			ot4 imdr
+ st=98 rt='[mdr] -> [mar]'		write
+ st=99 rt='[t3] + 1 -> q'		ot3 ib p1 oadder
+ st=100 rt='[q] -> r_dst'		oq wac=3
+		nst=0
+
+*** dst is Autodecrement ***
+ st=101 rt='[t3] -> mar/r_dst'	ot3 imar wac=3
+ st=102 rt='[t4] -> mdr'		ot4 imdr
+ st=103 rt='[mdr] -> [mar]'		write
+		nst=0
+
+
+*************** NEG: dst addressing mode *******************
+
+*** Register ***
+ st=110 rt='[r_dst] -> t3/t5'	rac=3 it3 it5
+		nst=21
+
+*** Register Indirect ***
+ st=111 rt='[r_dst] -> mar/t3'	rac=3 imar it3
+ st=112 rt='[[mar]] -> mdr'		read
+ st=113 rt='[mdr] -> t5'		omdr it5
+		nst=21
+
+*** Autoincrement ***
+ st=114 rt='[r_dst] -> mar/t3'	rac=3 imar it3
+ st=115 rt='[[mar]] -> mdr'		read
+ st=116 rt='[mdr] -> t5'		omdr it5
+		nst=21
+
+*** Autodecrement ***
+ st=117 rt='[r_dst] -> t1'		rac=3 it1
+ st=118 rt='[t1] - 1 -> q'		oa comp oadder
+ st=119 rt='[q] -> r_dst/t3'	oq wac=3 it3
+ st=120 rt='[t3] -> mar'		ot3 imar
+ st=121 rt='[[mar]] -> mdr'		read
+ st=122 rt='[mdr] -> t5'		omdr it5 newn newz
+		nst=21
+
+*********** NEG: saving dst ***********
+*** Register ***
+ st=130 rt='[t2] -> r_dst'		ot2 wac=3 newn newz
+		nst=0
+
+*** Register Indirect ***
+ st=131 rt='[t3] -> mar/r_dst'	ot3 imar wac=3 newn newz
+ st=132 rt='[t2] -> mdr'		ot2 imdr
+ st=133 rt='[mdr] -> [mar]'		write
+		nst=0
+
+*** Autoincrement ***
+ st=134 rt='[t3] -> mar'		ot3 imar
+ st=135 rt='[t2] -> mdr'		ot2 imdr
+ st=136 rt='[mdr] -> [mar]'		write
+ st=137 rt='[t3] + 1 -> q'		ot3 ib p1 oadder
+ st=138 rt='[q] -> r_dst'		oq wac=3 newn newz
+		nst=0
+
+*** Autodecrement ***
+ st=139 rt='[t3] -> mar/r_dst'	ot3 imar wac=3 newn newz
+ st=140 rt='[t2] -> mdr'		ot2 imdr newn newz
+ st=141 rt='[mdr] -> [mar]'		write
+		nst=0

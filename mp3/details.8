@@ -1,0 +1,99 @@
+  Hex/Decimal memory dump (least significant word on left)
+  Only lines with at least one nonzero value printed
+     0/   0. : (    0/     0.)( 2202/  8706.)( 2206/  8710.)(    0/     0.)
+     4/   4. : (    1/     1.)(    2/     2.)(    3/     3.)(    4/     4.)
+     8/   8. : (    5/     5.)(    0/     0.)(    0/     0.)(    0/     0.)
+ state is decimal format; registers are hex 
+   starting instruction 1
+    0    4    5   7   1    0    0    0    0    0    0   0    0    0 0000 [pc]-> mar      
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+    1    4    5   7   1    0    0    0    0    0    0   1    0    0 0000 [[mar]]-> mdr   
+    2    4    5   7   1    0    0    0    0    0    0   1 2202    0 0000 [mdr] -> ir     
+    3    4    5   7   1    0    0    0    0    0    0   1 2202 2202 0000 [pc]+1 -> q     
+    4    4    5   7   1    0    2    0    0    0    0   1 2202 2202 0000 [q] -> pc       
+  300    4    5   7   2    0    2    0    0    0    0   1 2202 2202 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   20    4    5   7   2    0    2    0    0    0    0   1 2202 2202 0000 --              
+   34    4    5   7   2    0    2    0    0    0    0   1 2202 2202 0000 [r_src] -> mar/t
+   35    4    5   7   2    0    2    4    0    0    0   4 2202 2202 0000 [[mar]] -> mdr  
+   36    4    5   7   2    0    2    4    0    0    0   4    1 2202 0000 [mdr] -> t4     
+   21    4    5   7   2    0    2    4    0    1    0   4    1 2202 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   70    4    5   7   2    0    2    4    0    1    0   4    1 2202 0000 [r_dst] -> t3/t5
+   22    4    5   7   2    0    2    4    7    1    7   4    1 2202 0000 --              
+  143    4    5   7   2    0    2    4    7    1    7   4    1 2202 0000 [t5] -> t1      
+  144    4    5   7   2    7    2    4    7    1    7   4    1 2202 0000 [t1] - [t4] -> q
+  145    4    5   7   2    7    6    4    7    1    7   4    1 2202 1000 [q] -> t4       
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  146    4    5   7   2    7    6    4    7    6    7   4    1 2202 1000 set c from 1 to 
+   23    4    5   7   2    7    6    4    7    6    7   4    1 2202 0000 --              
+  120    4    5   7   2    7    6    4    7    6    7   4    1 2202 0000 [t4] -> r_dst   
+   24    4    5   6   2    7    6    4    7    6    7   4    1 2202 0000 --              
+   26    4    5   6   2    7    6    4    7    6    7   4    1 2202 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  800    4    5   6   2    7    6    4    7    6    7   4    1 2202 0000 --              
+  801    4    5   6   2    7    6    4    7    6    7   4    1 2202 0000 [r_src] + 1 -> q
+  802    4    5   6   2    7    5    4    7    6    7   4    1 2202 0000 [q] -> r_src    
+  803    5    5   6   2    7    5    4    7    6    7   4    1 2202 0000 --              
+   starting instruction 2
+    0    5    5   6   2    7    5    4    7    6    7   4    1 2202 0000 [pc]-> mar      
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+    1    5    5   6   2    7    5    4    7    6    7   2    1 2202 0000 [[mar]]-> mdr   
+    2    5    5   6   2    7    5    4    7    6    7   2 2206 2202 0000 [mdr] -> ir     
+    3    5    5   6   2    7    5    4    7    6    7   2 2206 2206 0000 [pc]+1 -> q     
+    4    5    5   6   2    7    3    4    7    6    7   2 2206 2206 0000 [q] -> pc       
+  300    5    5   6   3    7    3    4    7    6    7   2 2206 2206 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   20    5    5   6   3    7    3    4    7    6    7   2 2206 2206 0000 --              
+   34    5    5   6   3    7    3    4    7    6    7   2 2206 2206 0000 [r_src] -> mar/t
+   35    5    5   6   3    7    3    5    7    6    7   5 2206 2206 0000 [[mar]] -> mdr  
+   36    5    5   6   3    7    3    5    7    6    7   5    2 2206 0000 [mdr] -> t4     
+   21    5    5   6   3    7    3    5    7    2    7   5    2 2206 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   70    5    5   6   3    7    3    5    7    2    7   5    2 2206 0000 [r_dst] -> t3/t5
+   22    5    5   6   3    7    3    5    6    2    6   5    2 2206 0000 --              
+  143    5    5   6   3    7    3    5    6    2    6   5    2 2206 0000 [t5] -> t1      
+  144    5    5   6   3    6    3    5    6    2    6   5    2 2206 0000 [t1] - [t4] -> q
+  145    5    5   6   3    6    4    5    6    2    6   5    2 2206 1000 [q] -> t4       
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  146    5    5   6   3    6    4    5    6    4    6   5    2 2206 1000 set c from 1 to 
+   23    5    5   6   3    6    4    5    6    4    6   5    2 2206 0000 --              
+  120    5    5   6   3    6    4    5    6    4    6   5    2 2206 0000 [t4] -> r_dst   
+   24    5    5   4   3    6    4    5    6    4    6   5    2 2206 0000 --              
+   26    5    5   4   3    6    4    5    6    4    6   5    2 2206 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  800    5    5   4   3    6    4    5    6    4    6   5    2 2206 0000 --              
+  801    5    5   4   3    6    4    5    6    4    6   5    2 2206 0000 [r_src] + 1 -> q
+  802    5    5   4   3    6    6    5    6    4    6   5    2 2206 0000 [q] -> r_src    
+  803    5    6   4   3    6    6    5    6    4    6   5    2 2206 0000 --              
+   starting instruction 3
+    0    5    6   4   3    6    6    5    6    4    6   5    2 2206 0000 [pc]-> mar      
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+    1    5    6   4   3    6    6    5    6    4    6   3    2 2206 0000 [[mar]]-> mdr   
+    2    5    6   4   3    6    6    5    6    4    6   3    0 2206 0000 [mdr] -> ir     
+    3    5    6   4   3    6    6    5    6    4    6   3    0    0 0000 [pc]+1 -> q     
+    4    5    6   4   3    6    4    5    6    4    6   3    0    0 0000 [q] -> pc       
+  300    5    6   4   4    6    4    5    6    4    6   3    0    0 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  301    5    6   4   4    6    4    5    6    4    6   3    0    0 0000 --              
+    5    5    6   4   4    6    4    5    6    4    6   3    0    0 0000 --              
+    6    5    6   4   4    6    4    5    6    4    6   3    0    0 0000 --              
+   10    5    6   4   4    6    4    5    6    4    6   3    0    0 0000 --              
+  test 8: Halt instruction executed 
+  Hex/Decimal memory dump (least significant word on left)
+  Only lines with at least one nonzero value printed
+     0/   0. : (    0/     0.)( 2202/  8706.)( 2206/  8710.)(    0/     0.)
+     4/   4. : (    1/     1.)(    2/     2.)(    3/     3.)(    4/     4.)
+     8/   8. : (    5/     5.)(    0/     0.)(    0/     0.)(    0/     0.)

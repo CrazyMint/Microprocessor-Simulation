@@ -1,0 +1,84 @@
+  Hex/Decimal memory dump (least significant word on left)
+  Only lines with at least one nonzero value printed
+     0/   0. : (  740/  1856.)( FFFF/    -1.)(    0/     0.)(   80/   128.)
+     4/   4. : (    1/     1.)(    2/     2.)(    3/     3.)(    4/     4.)
+     8/   8. : (    5/     5.)(    0/     0.)(    0/     0.)(    0/     0.)
+ state is decimal format; registers are hex 
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   starting instruction 1
+    0    4    5   6   0    0    0    0    0    0    0   0    0    0 0000 [pc]-> mar      
+    1    4    5   6   0    0    0    0    0    0    0   0    0    0 0000 [[mar]]-> mdr   
+    2    4    5   6   0    0    0    0    0    0    0   0  740    0 0000 [mdr] -> ir     
+    3    4    5   6   0    0    0    0    0    0    0   0  740  740 0000 [pc]+1 -> q     
+    4    4    5   6   0    0    1    0    0    0    0   0  740  740 0000 [q] -> pc       
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  300    4    5   6   1    0    1    0    0    0    0   0  740  740 0000 --              
+  301    4    5   6   1    0    1    0    0    0    0   0  740  740 0000 --              
+  160    4    5   6   1    0    1    0    0    0    0   0  740  740 0000 --              
+   83    4    5   6   1    0    1    0    0    0    0   0  740  740 0000 [pc] -> mar     
+   84    4    5   6   1    0    1    0    0    0    0   1  740  740 0000 [[mar]] -> mdr  
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   85    4    5   6   1    0    1    0    0    0    0   1 FFFF  740 0000 [r_dst] -> t1/t3
+   86    4    5   6   1    4    1    0    0    0    0   1 FFFF  740 0000 [mdr] + [t1] -> 
+   87    4    5   6   1    4    3    0    0    0    0   1 FFFF  740 0000 [q] -> mar/t3   
+   88    4    5   6   1    4    3    0    3    0    0   3 FFFF  740 0000 [[mar]] -> mdr  
+   89    4    5   6   1    4    3    0    3    0    0   3   80  740 0000 [mdr] -> t5     
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   90    4    5   6   1    4    3    0    3    0   80   3   80  740 0000 [pc] + 1 -> q   
+   91    4    5   6   1    4    2    0    3    0   80   3   80  740 0000 [q] -> pc       
+  161    4    5   6   2    4    2    0    3    0   80   3   80  740 0000 --              
+  220    4    5   6   2    4    2    0    3    0   80   3   80  740 0000 [sp] -> t1      
+  221    4    5   6   2    6    2    0    3    0   80   3   80  740 0000 [t1] - 1 -> q   
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  222    4    5   6   2    6    5    0    3    0   80   3   80  740 0000 [q] -> sp       
+  223    4    5   5   2    6    5    0    3    0   80   3   80  740 0000 [sp] -> mar     
+  224    4    5   5   2    6    5    0    3    0   80   5   80  740 0000 [pc] -> mdr     
+  225    4    5   5   2    6    5    0    3    0   80   5    2  740 0000 [mdr] -> [mar]  
+  226    4    5   5   2    6    5    0    3    0   80   5    2  740 0000 [t3] -> pc      
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+   starting instruction 2
+    0    4    5   5   3    6    5    0    3    0   80   5    2  740 0000 [pc]-> mar      
+    1    4    5   5   3    6    5    0    3    0   80   3    2  740 0000 [[mar]]-> mdr   
+    2    4    5   5   3    6    5    0    3    0   80   3   80  740 0000 [mdr] -> ir     
+    3    4    5   5   3    6    5    0    3    0   80   3   80   80 0000 [pc]+1 -> q     
+    4    4    5   5   3    6    4    0    3    0   80   3   80   80 0000 [q] -> pc       
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  300    4    5   5   4    6    4    0    3    0   80   3   80   80 0000 --              
+  301    4    5   5   4    6    4    0    3    0   80   3   80   80 0000 --              
+    5    4    5   5   4    6    4    0    3    0   80   3   80   80 0000 --              
+    7    4    5   5   4    6    4    0    3    0   80   3   80   80 0000 --              
+  380    4    5   5   4    6    4    0    3    0   80   3   80   80 0000 [sp] -> mar     
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  381    4    5   5   4    6    4    0    3    0   80   5   80   80 0000 read            
+  382    4    5   5   4    6    4    0    3    0   80   5    2   80 0000 [mdr] -> pc     
+  383    4    5   5   2    6    4    0    3    0   80   5    2   80 0000 [sp] + 1 -> q   
+  384    4    5   5   2    6    6    0    3    0   80   5    2   80 0000 [q] -> sp       
+   starting instruction 3
+    0    4    5   6   2    6    6    0    3    0   80   5    2   80 0000 [pc]-> mar      
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+    1    4    5   6   2    6    6    0    3    0   80   2    2   80 0000 [[mar]]-> mdr   
+    2    4    5   6   2    6    6    0    3    0   80   2    0   80 0000 [mdr] -> ir     
+    3    4    5   6   2    6    6    0    3    0   80   2    0    0 0000 [pc]+1 -> q     
+    4    4    5   6   2    6    3    0    3    0   80   2    0    0 0000 [q] -> pc       
+  300    4    5   6   3    6    3    0    3    0   80   2    0    0 0000 --              
+
+   st   ac    x  sp  pc   t1    q   t2   t3   t4   t5 mar  mdr   ir cvzn reg xfer
+  301    4    5   6   3    6    3    0    3    0   80   2    0    0 0000 --              
+    5    4    5   6   3    6    3    0    3    0   80   2    0    0 0000 --              
+    6    4    5   6   3    6    3    0    3    0   80   2    0    0 0000 --              
+   10    4    5   6   3    6    3    0    3    0   80   2    0    0 0000 --              
+  test N: Halt instruction executed 
+  Hex/Decimal memory dump (least significant word on left)
+  Only lines with at least one nonzero value printed
+     0/   0. : (  740/  1856.)( FFFF/    -1.)(    0/     0.)(   80/   128.)
+     4/   4. : (    1/     1.)(    2/     2.)(    3/     3.)(    4/     4.)
+     8/   8. : (    5/     5.)(    0/     0.)(    0/     0.)(    0/     0.)

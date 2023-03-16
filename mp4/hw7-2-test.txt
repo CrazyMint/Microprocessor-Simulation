@@ -1,0 +1,15 @@
+********  test hw7-2
+0008   AC     
+00FF   X     
+0008   SP     
+0004   PC     
+1101   CVZN 
+3018   MOVE SP,(AC)
+5208   OR (SP)+,AC
+0643   JMP EA,EA=n+pc=2+4
+0002
+0650   JMP EA,EA=n=1
+0001
+0301
+0000   halt    
+2F66   8:

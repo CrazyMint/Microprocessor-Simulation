@@ -1,0 +1,22 @@
+*************
+start neg_test 2
+0001 AC
+0009 X
+0007 SP
+0000 PC
+0000 CVZN
+0400 NEG AC
+0401 NEG X
+0401 NEG X
+0400 NEG AC
+0412 NEG (SP)
+0421 NEG (X)+
+0430 NEG -(AC)
+0001 7:
+0002 8:
+0003 9:
+0004 A:
+0005 B:
+0000 C:
+end neg_test 2
+*************

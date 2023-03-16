@@ -1,0 +1,214 @@
+*******************************
+****        ECE 5362       ****
+****   Machine Problem 2   ****
+****      Shengzhe Tan     ****
+*******************************
+*** Start fetch cycle***
+ st=0 rt='[pc]-> mar'	      imar rac=1 rn=3
+ st=1 rt='[[mar]]-> mdr'      read
+ st=2 rt='[mdr]->ir'	      omdr iir
+ st=3 rt='[pc]+1-> q'         rac=1 rn=3 ib p1 oadder
+ st=4 rt='[q]-> pc'           oq wac=1 wn=3
+ 	cond='ir1512' value=0 nst=10
+	cond='ir1512' value=1 nst=20
+	nst=10
+*******************************
+ st=10 halt
+
+*** ADD AC,AC execution cycle***
+st=20 rt='[r_src] -> t1'	 rac=2 it1
+st=21 rt='[t1]+[r_dst] ->q'     oa rac=3 ib oadder newc newv
+st=22 rt='[q] -> r_dst'         oq wac=3 newz newn
+nst=0
+
+***select src part***
+ st=20 
+	cond='ir108' value=0 nst=30
+	cond='ir108' value=1 nst=31
+        cond='ir108' value=2 nst=34
+        cond='ir108' value=3 nst=39
+        cond='ir108' value=4 nst=50
+        cond='ir108' value=5 nst=60
+	cond='ir108' value=6 nst=70
+	nst=10
+
+***select dst part***
+ st=21
+        cond='ir64' value=0 nst=90
+        cond='ir64' value=1 nst=91
+        cond='ir64' value=2 nst=100
+        cond='ir64' value=3 nst=110
+        cond='ir64' value=4 nst=75
+        cond='ir64' value=5 nst=125
+	nst=10
+
+***ADD part***
+ st=22 rt='[T1]+[T2]->Q'	ot2 oa ib oadder newc newv
+
+***save part***
+ st=23
+
+        cond='ir64' value=0 nst=140
+	cond='ir64' value=1 nst=141
+        cond='ir64' value=2 nst=150
+        cond='ir64' value=3 nst=160
+        cond='ir64' value=4 nst=170
+        cond='ir64' value=5 nst=165
+        nst=10
+***************src part**********************
+
+***rgst mode***
+ st=30 rt='[r_src] -> t1'        rac=2 it1
+        nst=21
+
+***rgst indirect mode***
+ st=31 rt='[r_src]->mar'	rac=2 imar
+ st=32 rt='[[mar]]-> mdr'	read
+ st=33 rt='[mdr]->t1'		omdr it1
+        nst=21
+
+***autoincrement***
+ st=34 rt='[r_src]->mar'	rac=2 imar
+ st=35 rt='[[mar]]-> mdr'	read
+ st=36 rt='[mdr]->t1'		omdr it1
+ st=37 rt='[r_src]+1->q'	rac=2 ib p1 oadder
+ st=38 rt='[q]-> r_src'		oq wac=2
+        nst=21
+
+***autodecrement***
+ st=39 rt='[r_src]->t1'		rac=2 it1
+ st=40 rt='#1->q'		p1 oadder
+ st=41 rt='[t1]-q->q'		oq ib comp p1 oa oadder
+ st=42 rt='[q]->mar&r_sec'	oq imar wac=2
+ st=43 rt='[[mar]]-> mdr'	read
+ st=44 rt='[mdr]->t1'		omdr it1
+        nst=21
+
+***index***
+ st=50 rt='[pc]->mar'		rac=1 rn=3 imar
+ st=51 rt='[[mar]]->mdr'		read	
+ st=52 rt='[r_src]->t1'		rac=2 it1
+ st=53 rt='[mdr]+[t1]->q'		omdr oa ib oadder
+ st=54 rt='[q]->mar'		oq imar
+ st=55 rt='[[mar]]->mdr'		read
+ st=56 rt='[mdr]->t1'		omdr it1
+ st=57 rt='[pc]+1->q'           rac=1 rn=3 ib p1 oadder
+ st=58 rt='[q]->pc'             oq wac=1 wn=3
+	nst=21
+
+***absolute***
+ st=60 rt='[pc]->mar'		rac=1 rn=3 imar
+ st=61 rt='[[mar]]-> mdr'		read
+ st=62 rt='[mdr]->mar'		omdr imar
+ st=63 rt='[[mar]]->mdr'		read
+ st=64 rt='[mdr]->t1'		omdr it1
+ st=65 rt='[pc]+1->q'		rac=1 rn=3 ib p1 oadder
+ st=66 rt='[q]->pc'		oq wac=1 wn=3
+        nst=21
+
+***immediate***
+ st=70 rt='[pc]->mar'		rac=1 rn=3 imar
+ st=71 rt='[[mar]]-> mdr'		read
+ st=72 rt='[mdr]->t1'		omdr it1
+ st=73 rt='[pc]+1->q'		rac=1 rn=3 ib p1 oadder
+ st=74 rt='[q]->pc'		oq wac=1 wn=3
+        nst=21
+
+******************dst part**********************
+ATTENTION: Do not plus one in autoincrement mode
+in this part
+You can PC+1 in absoulte mode, but save address
+in T3
+Save the dst in T2
+
+***index***
+protect t1 in t2 and save addr in t3
+ st=75 rt='[t1]->t2'		  ot1 it2
+ st=76 rt='[pc]->mar'             rac=1 rn=3 imar
+ st=77 rt='[[mar]]->mdr'          read    
+ st=78 rt='[r_dst]->t1'           rac=3 it1 
+ st=79 rt='[mdr]+[t1]->q'         omdr oa ib oadder
+ st=80 rt='[q]->mar/t3'              oq imar it3 
+ st=81 rt='[[mar]]->mdr'          read
+ st=82 rt='[t2]->t1'            ot2 it1 
+ st=83 rt='[mdr]->t2'             omdr it2 
+ st=84 rt='[pc]+1->q'           rac=1 rn=3 ib p1 oadder
+ st=85 rt='[q]->pc'             oq wac=1 wn=3
+	nst=22
+
+
+***rgst mode***
+ st=90 rt='[r_dst] -> t2'        rac=3 it2 
+        nst=22
+
+***rgst indirect mode***
+ st=91 rt='[r_dst]->mar'          rac=3 imar
+ st=92 rt='[[mar]]-> mdr'         read
+ st=93 rt='[mdr]->t2'             omdr it2 
+        nst=22
+
+***autoincrement***
+ st=100 rt='[r_dat]->mar'          rac=3 imar
+ st=101 rt='[[mar]]-> mdr'         read
+ st=102 rt='[mdr]->t2'             omdr it2
+        nst=22
+
+***autodecrement*** !!!
+protect t1 in t2
+ st=110 rt='[t1]->t2'			ot1 it2
+ st=111 rt='[r_dst]->t1'           rac=3 it1 
+ st=112 rt='#1->q'                 p1 oadder
+ st=113 rt='[t1]-q->q'             oq ib comp p1 oa oadder
+ st=114 rt='[q]->mar/r_dst'              oq imar wac=3
+ st=115 rt='[[mar]]-> mdr'         read
+ st=116 rt='[t2]->t1'    		ot2 it1
+ st=117 rt='[mdr]->t2' 			omdr it2
+        nst=22
+
+**absolute***
+ st=125 rt='[pc]->mar'             rac=1 rn=3 imar
+ st=126 rt='[[mar]]-> mdr'         read
+ st=127 rt='[mdr]->mar/t3'         omdr imar it3
+ st=128 rt='[[mar]]->mdr'          read
+ st=129 rt='[mdr]->t2'             omdr it2 
+ st=130 rt='[pc]+1->q'             rac=1 rn=3 ib p1 oadder
+ st=131 rt='[q]->pc'               oq wac=1 wn=3
+        nst=22
+
+******************save part**********************
+
+***register***
+ st=140 rt='[q] -> r_dst'		oq wac=3 newz newn
+        nst=0
+
+***indirect***
+ st=141 rt='[r_dst]->mar'		rac=3 imar
+ st=142 rt='[q]->mdr'			oq imdr newz newn
+ st=143 rt='[mdr]->[mar]'		write
+         nst=0
+
+***autoincrement***
+  st=150 rt='[r_dst]->mar'		rac=3 imar
+  st=151 rt='[q]->mdr'			oq imdr newz newn
+  st=152 rt='[mdr]->[mar]'		write
+  st=153 rt='[r_dst]+1->q'		rac=3 ib p1 oadder
+  st=154 rt='[q]->r_dst'		oq wac=3
+        nst=0
+
+***autodecrement***
+  st=160 rt='[r_drc]->mar'		rac=3 imar
+  st=161 rt='[q]->mdr'			oq imdr newz newn
+  st=162 rt='[mdr]->[mar]'		write
+        nst=0
+
+***abosulte***
+ st=165 rt='[q]->mdr'			oq imdr newz newn
+ st=166 rt='[T3]->mar'			ot3 imar
+ st=167 rt='[mdr]->[mar]'		write
+        nst=0
+
+***index***
+ st=170 rt='[q]->mdr'                   oq imdr newz newn
+ st=171 rt='[T3]->mar'                  ot3 imar
+ st=172 rt='[mdr]->[mar]'               write
+        nst=0

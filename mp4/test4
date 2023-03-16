@@ -1,0 +1,24 @@
+*************
+start neg_test 2
+0001 AC
+0009 X
+000A SP
+0000 PC
+0000 CVZN
+2001 SUB AC X
+2109 SUB (SP) X
+2012 SUB AC (SP)
+2022 SUB AC (SP)+
+2031 SUB AC -(X)
+2041 SUB AC 1(X)
+0002
+2051 SUB AC A
+000A
+0001 9:
+0002 A:
+0003 B:
+0004 C:
+0005 D:
+0000 E:
+end neg_test 2
+*************
